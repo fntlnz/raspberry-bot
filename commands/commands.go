@@ -4,8 +4,8 @@ import "github.com/codegangsta/cli"
 
 var Commands = []cli.Command{
 	{
-		Name:   "example",
-		Usage:  "boh",
+		Name:   "start",
+		Usage:  "Start the bot",
 		Action: cmdRun,
 	},
 }
