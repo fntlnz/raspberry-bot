@@ -51,10 +51,12 @@ func (s *Source) WaitUpdates() {
 	}
 }
 
+// Wait for feedback. If the feed SourceName is different
+// than the current source Name return the feed into the channel
 func (s *Source) WaitFeedback() {
 	for feed := range sources.Feedback() {
-		log.Printf("F: %s, S: %s", feed.SourceName, s.Name())
 		if feed.SourceName != s.Name() {
+			sources.Feedback() <- feed
 			continue
 		}
 		msg := tgbotapi.NewMessage(feed.Sender.(tgbotapi.User).ID, feed.Text)
