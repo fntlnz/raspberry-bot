@@ -1,0 +1,8 @@
+{
+    "telegram_sources": [
+        {
+            "token": "yourbotfathergeneratedtoken",
+            "allowed_users": [1234]
+        }
+    ]
+}
