@@ -1,6 +1,7 @@
 package sources
 
 type Message struct {
-	Sender interface{}
-	Text   string
+	SourceName string
+	Sender     interface{}
+	Text       string
 }

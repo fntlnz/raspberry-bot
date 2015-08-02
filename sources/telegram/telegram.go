@@ -1,16 +1,16 @@
 package telegram
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/Syfaro/telegram-bot-api"
 	"github.com/fntlnz/raspberry-bot/sources"
+	"github.com/fntlnz/raspberry-bot/utils"
 )
 
-var updates = make(chan *sources.Message)
-var feedback = make(chan *sources.Message)
-
 type Source struct {
+	name         string
 	Bot          *tgbotapi.BotAPI
 	AllowedUsers []int
 }
@@ -23,21 +23,18 @@ func NewSource(token string, allowedUsers []int) sources.Source {
 
 	log.Printf("Authorized on account %s", bot.Self.UserName)
 	return &Source{
+		name:         fmt.Sprintf("telegram_%s", utils.RandomString(5)),
 		Bot:          bot,
 		AllowedUsers: allowedUsers,
 	}
 }
 
-func (s *Source) SourceName() string {
+func (s *Source) Type() string {
 	return "telegram"
 }
 
-func (s *Source) Updates() <-chan *sources.Message {
-	return updates
-}
-
-func (s *Source) Feedback() chan<- *sources.Message {
-	return feedback
+func (s *Source) Name() string {
+	return s.name
 }
 
 func (s *Source) WaitUpdates() {
@@ -55,7 +52,11 @@ func (s *Source) WaitUpdates() {
 }
 
 func (s *Source) WaitFeedback() {
-	for feed := range feedback {
+	for feed := range sources.Feedback() {
+		log.Printf("F: %s, S: %s", feed.SourceName, s.Name())
+		if feed.SourceName != s.Name() {
+			continue
+		}
 		msg := tgbotapi.NewMessage(feed.Sender.(tgbotapi.User).ID, feed.Text)
 		s.Bot.SendMessage(msg)
 	}
@@ -69,8 +70,9 @@ func (s *Source) handleUpdate(update tgbotapi.Update) {
 		}
 	}
 	log.Printf("[%d] %s", update.Message.From.ID, update.Message.Text)
-	updates <- &sources.Message{
-		Sender: update.Message.From,
-		Text:   update.Message.Text,
+	sources.Updates() <- &sources.Message{
+		SourceName: s.Name(),
+		Sender:     update.Message.From,
+		Text:       update.Message.Text,
 	}
 }

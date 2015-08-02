@@ -6,6 +6,6 @@ var Commands = []cli.Command{
 	{
 		Name:   "start",
 		Usage:  "Start the bot",
-		Action: cmdRun,
+		Action: cmdStart,
 	},
 }
