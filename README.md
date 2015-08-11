@@ -4,6 +4,7 @@ The basic idea is that I want to send commands over various transports (telegram
 
 Here's a list of actions I want it to do:
 
+- [ ] Play a song or multiple songs upon receiving the title, artist, album genre etc..
 - [x] Send me his public ip address
 - [ ] Open a port on my home router so I can reach him from anywhere and then safely close the port when I finished
 - [x] Send me some status informations (Ram, Cpu)

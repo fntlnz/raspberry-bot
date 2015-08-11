@@ -11,7 +11,7 @@ import (
 )
 
 func cmdStart(c *cli.Context) {
-	conf := configuration.ParseFile(c.Args()[0])
+	conf := configuration.ParseFile(c.String("configuration"))
 	availableCommands := map[string]func() (string, error){
 		"ip":     sysinfo.IPAddress,
 		"status": sysinfo.SystemStatus,

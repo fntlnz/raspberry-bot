@@ -6,14 +6,3 @@ type Source interface {
 	WaitUpdates()
 	WaitFeedback()
 }
-
-var updates = make(chan *Message)
-var feedback = make(chan *Message)
-
-func Updates() chan *Message {
-	return updates
-}
-
-func Feedback() chan *Message {
-	return feedback
-}

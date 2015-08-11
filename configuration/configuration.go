@@ -12,6 +12,7 @@ type Configuration struct {
 
 func ParseFile(path string) Configuration {
 	file, err := os.Open(path)
+	defer file.Close()
 	if err != nil {
 		log.Fatalf("An error occurred opening configuration file: %s", err.Error())
 	}
