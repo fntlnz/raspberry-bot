@@ -1,6 +1,6 @@
 package commands
 
-import "github.com/codegangsta/cli"
+import "github.com/fntlnz/raspberry-bot/Godeps/_workspace/src/github.com/codegangsta/cli"
 
 var Commands = []cli.Command{
 	{

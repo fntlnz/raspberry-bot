@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/Syfaro/telegram-bot-api"
+	"github.com/fntlnz/raspberry-bot/Godeps/_workspace/src/github.com/Syfaro/telegram-bot-api"
 	"github.com/fntlnz/raspberry-bot/sources"
 	"github.com/fntlnz/raspberry-bot/utils"
 )
