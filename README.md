@@ -12,7 +12,9 @@ Here's a list of actions I want it to do:
 - [ ] Face recognition
 
 ### Build
+
 ```
+
 GOOS=linux GOARCH=arm CGO_ENABLED=0 go build .
 go build .
 ```

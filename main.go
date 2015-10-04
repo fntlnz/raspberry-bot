@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/fntlnz/raspberry-bot/Godeps/_workspace/src/github.com/codegangsta/cli"
+	"github.com/codegangsta/cli"
 	"github.com/fntlnz/raspberry-bot/commands"
 	"os"
 )

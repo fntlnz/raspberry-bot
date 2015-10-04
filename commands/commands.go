@@ -1,6 +1,6 @@
 package commands
 
-import "github.com/fntlnz/raspberry-bot/Godeps/_workspace/src/github.com/codegangsta/cli"
+import "github.com/codegangsta/cli"
 
 var Commands = []cli.Command{
 	{
@@ -15,5 +15,10 @@ var Commands = []cli.Command{
 				Value:  "configuration.json",
 			},
 		},
+	},
+	{
+		Name:   "testcamera",
+		Usage:  "Test the camera",
+		Action: cmdTestCamera,
 	},
 }
