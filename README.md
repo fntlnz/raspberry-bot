@@ -11,20 +11,16 @@ Here's a list of actions I want it to do:
 - [ ] Download some torrents upon receiving the title
 - [ ] Face recognition
 
-### Vendoring
-```
-export GO15VENDOREXPERIMENT=1
-```
 
 ### Build
 
 ```
 GOOS=linux GOARCH=arm CGO_ENABLED=0 go build .
-go build .
 ```
 
-### Deps
+### Dependencies
 
 ```
+export GO15VENDOREXPERIMENT=1
 godep save ./...
 ```
