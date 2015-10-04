@@ -12,7 +12,7 @@ import (
 
 func cmdStart(c *cli.Context) {
 	conf := configuration.ParseFile(c.String("configuration"))
-	availableCommands := map[string]func() (string, error){
+	availableCommands := map[string]func() (interface{}, error){
 		"ip":     sysinfo.IPAddress,
 		"status": sysinfo.SystemStatus,
 	}
@@ -26,20 +26,23 @@ func cmdStart(c *cli.Context) {
 	}
 
 	for update := range sources.Updates() {
-		command, ok := availableCommands[update.Text]
-		if !ok {
-			log.Printf("Unknown command %s", update.Text)
-			continue
-		}
-		msg, err := command()
-		if err != nil {
-			log.Printf("%s", err.Error())
-			continue
-		}
-		sources.Feedback() <- &sources.Message{
-			SourceName: update.SourceName,
-			Sender:     update.Sender,
-			Text:       msg,
-		}
+		go func() {
+			command, ok := availableCommands[update.Body.(string)]
+
+			if !ok {
+				log.Printf("Unknown command %s", update.Body.(string))
+				return
+			}
+			msg, err := command()
+			if err != nil {
+				log.Printf("%s", err.Error())
+				return
+			}
+			sources.Feedback() <- &sources.Message{
+				SourceName: update.SourceName,
+				Sender:     update.Sender,
+				Body:    msg,
+			}
+		}()
 	}
 }

@@ -16,9 +16,4 @@ var Commands = []cli.Command{
 			},
 		},
 	},
-	{
-		Name:   "testcamera",
-		Usage:  "Test the camera",
-		Action: cmdTestCamera,
-	},
 }

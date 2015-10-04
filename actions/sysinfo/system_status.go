@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-func SystemStatus() (string, error) {
+func SystemStatus() (interface{}, error) {
 	idle0, total0 := getCPUSample()
 	time.Sleep(3 * time.Second)
 	idle1, total1 := getCPUSample()

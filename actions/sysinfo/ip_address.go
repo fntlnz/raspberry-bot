@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func IPAddress() (string, error) {
+func IPAddress() (interface{}, error) {
 	res, err := http.Get("http://myexternalip.com/raw")
 	if err != nil {
 		return "", fmt.Errorf("An error occurred determining external ip address: %s", err.Error())

@@ -3,7 +3,7 @@ package sources
 type Message struct {
 	SourceName string
 	Sender     interface{}
-	Text       string
+	Body       interface{}
 }
 
 var updates = make(chan *Message)

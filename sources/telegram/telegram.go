@@ -59,8 +59,12 @@ func (s *Source) WaitFeedback() {
 			sources.Feedback() <- feed
 			continue
 		}
-		msg := tgbotapi.NewMessage(feed.Sender.(tgbotapi.User).ID, feed.Text)
-		s.Bot.SendMessage(msg)
+
+		// Text message
+		if _, ok := feed.Body.(string); ok {
+			msg := tgbotapi.NewMessage(feed.Sender.(tgbotapi.User).ID, feed.Body.(string))
+			s.Bot.SendMessage(msg);
+		}
 	}
 }
 
@@ -75,6 +79,6 @@ func (s *Source) handleUpdate(update tgbotapi.Update) {
 	sources.Updates() <- &sources.Message{
 		SourceName: s.Name(),
 		Sender:     update.Message.From,
-		Text:       update.Message.Text,
+		Body:       update.Message.Text,
 	}
 }
